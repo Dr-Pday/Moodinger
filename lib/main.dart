@@ -33,16 +33,36 @@ class SplashScreen extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: Container(
-            width: 155,
-            height: 77,
-            child: Image(
-              image: AssetImage(
-                'assets/images/Startlogo.png',
+        body: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/Startlogo.png',
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              bottom: 32,
+              child: Column(
+                children: [
+                  Text(
+                    'From',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    'Erfano',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
