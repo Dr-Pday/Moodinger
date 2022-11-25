@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.indigo[900],
+        color: Color(0xff1C1F2E),
         image: DecorationImage(
           repeat: ImageRepeat.repeat,
           image: AssetImage(
