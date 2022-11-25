@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/screens/switch_account_screen.dart';
 
 void main() {
   runApp(Application());
@@ -11,7 +12,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: SwitchAccountScreen(),
     );
   }
 }
@@ -25,6 +26,7 @@ class SplashScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xff1C1F2E),
         image: DecorationImage(
+          opacity: 0.4,
           repeat: ImageRepeat.repeat,
           image: AssetImage(
             'assets/images/pattern.png',
