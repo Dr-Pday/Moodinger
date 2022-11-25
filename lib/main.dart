@@ -12,7 +12,19 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SwitchAccountScreen(),
+      home: Container(
+        decoration: BoxDecoration(
+          color: Color(0xff1C1F2E),
+          image: DecorationImage(
+            opacity: 0.4,
+            repeat: ImageRepeat.repeat,
+            image: AssetImage(
+              'assets/images/pattern.png',
+            ),
+          ),
+        ),
+        child: SwitchAccountScreen(),
+      ),
     );
   }
 }
@@ -22,50 +34,38 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xff1C1F2E),
-        image: DecorationImage(
-          opacity: 0.4,
-          repeat: ImageRepeat.repeat,
-          image: AssetImage(
-            'assets/images/pattern.png',
-          ),
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                child: Image(
-                  image: AssetImage(
-                    'assets/images/Startlogo.png',
-                  ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 80.0),
+              child: Image(
+                image: AssetImage(
+                  'assets/images/Startlogo.png',
                 ),
               ),
             ),
-            Positioned(
-              bottom: 32,
-              child: Column(
-                children: [
-                  Text(
-                    'From',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Text(
-                    'Erfano',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 32,
+            child: Column(
+              children: [
+                Text(
+                  'From',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Text(
+                  'Erfano',
+                  style: TextStyle(
+                      color: Colors.blue, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
