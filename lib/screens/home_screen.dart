@@ -1,8 +1,8 @@
 import 'dart:ui';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/constats/colors.dart';
+import 'package:instagram/screens/bottom_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -34,20 +34,39 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-          children: [
-            SizedBox(
-              height: 13,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: ElevatedButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return DraggableScrollableSheet(
+                            builder: (context, scrollController) {
+                          return ShareBottomSheet(
+                              scrollController: scrollController);
+                        });
+                      });
+                },
+                child: Text('bottom sheet'),
+              ),
             ),
-            SizedBox(
-              height: 110,
-              child: _getStoryList(),
+            SliverToBoxAdapter(child: _getStoryList2()),
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 32,
+                    ),
+                    _getPost(),
+                  ],
+                );
+              }, childCount: 4),
             ),
-            SizedBox(height: 32),
-            _getPostsList(),
           ],
-        )),
+        ),
       ),
     );
   }
@@ -89,7 +108,7 @@ Widget _getStoryList() {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _getStoryBox(64),
+                    _getStoryBox(64, index),
                     SizedBox(
                       width: 20,
                     ),
@@ -104,7 +123,35 @@ Widget _getStoryList() {
   );
 }
 
-Widget _getStoryBox(double size) {
+Widget _getStoryList2() {
+  return Padding(
+    padding: const EdgeInsets.only(top: 13.0),
+    child: Container(
+      height: 88,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        //shrinkWrap: true,
+        itemCount: 8,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                index == 0 ? _getAddStory() : _getStoryBox(64, index),
+                SizedBox(
+                  width: 20,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+Widget _getStoryBox(double size, index) {
   return Column(
     children: [
       DottedBorder(
@@ -117,10 +164,15 @@ Widget _getStoryBox(double size) {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           child: Container(
-            child: Image.asset(
-              'assets/images/erfan_onagh.png',
-              fit: BoxFit.cover,
-            ),
+            child: index == 1
+                ? Image.asset(
+                    'assets/images/azadi.png',
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    'assets/images/erfan_onagh.png',
+                    fit: BoxFit.cover,
+                  ),
             height: size - 6,
             width: size - 6,
           ),
