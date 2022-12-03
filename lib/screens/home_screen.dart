@@ -36,22 +36,6 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: ElevatedButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return DraggableScrollableSheet(
-                            builder: (context, scrollController) {
-                          return ShareBottomSheet(
-                              scrollController: scrollController);
-                        });
-                      });
-                },
-                child: Text('bottom sheet'),
-              ),
-            ),
             SliverToBoxAdapter(child: _getStoryList2()),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -60,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: 32,
                     ),
-                    _getPost(),
+                    _getPost(context),
                   ],
                 );
               }, childCount: 4),
@@ -80,7 +64,7 @@ Widget _getPostsList() {
     itemBuilder: (context, index) {
       return Column(
         children: [
-          _getPost(),
+          _getPost(context),
           SizedBox(
             height: 32,
           ),
@@ -187,7 +171,7 @@ Widget _getStoryBox(double size, index) {
   );
 }
 
-Widget _getPost() {
+Widget _getPost(context) {
   return Container(
     child: Padding(
       padding: const EdgeInsets.only(left: 17.0, right: 17.0),
@@ -274,7 +258,7 @@ Widget _getPost() {
                   ),
                 ],
               ),
-              _getOptionBox(),
+              _getOptionBox(context),
             ],
           ),
         ],
@@ -313,7 +297,7 @@ Widget _getAddStory() {
   );
 }
 
-Widget _getOptionBox() {
+Widget _getOptionBox(context) {
   return ClipRRect(
     child: BackdropFilter(
       filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
@@ -375,7 +359,29 @@ Widget _getOptionBox() {
                 ],
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    barrierColor: Colors.transparent,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: DraggableScrollableSheet(
+                          maxChildSize: 0.7,
+                          minChildSize: 0.2,
+                          initialChildSize: 0.4,
+                          builder: (context, scrollController) {
+                            return ShareBottomSheet(
+                                scrollController: scrollController);
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
                 icon: Image.asset(
                   'assets/images/share.png',
                 ),
