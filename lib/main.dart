@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram/constats/colors.dart';
 import 'package:instagram/screens/home_screen.dart';
 import 'package:instagram/screens/login_screen.dart';
+import 'package:instagram/screens/search-screen.dart';
 import 'package:instagram/screens/switch_account_screen.dart';
 
 void main() {
@@ -47,7 +48,7 @@ class Application extends StatelessWidget {
             ),
           ),
         ),
-        child: HomeScreen(),
+        child: SearchScreen(),
       ),
     );
   }
